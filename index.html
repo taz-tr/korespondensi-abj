@@ -24,7 +24,8 @@ header h1{margin:0;font-size:24px;letter-spacing:.2px} header p{margin:8px 0 0;c
 .cutoffPanel h2{grid-column:1/-1;margin:0;font-size:17px;color:#1e3a8a}.cutoffPanel .hint{grid-column:1/-1;margin-top:-7px;font-size:12px;color:#64748b}.cutoffPanel select{font-size:14px;font-weight:800;border-color:#60a5fa;background:#fff}.cutoffRefresh{background:#0f766e;white-space:nowrap}.versionStamp{font-size:10px;color:#64748b;text-align:right;margin-top:-8px;margin-bottom:10px}
 .toolbar{display:grid;grid-template-columns:1.1fr auto auto auto auto auto;gap:10px;align-items:center;margin-bottom:14px}.statusBox{font-size:12px;color:var(--muted);line-height:1.45}
 button{border:0;border-radius:11px;padding:11px 14px;cursor:pointer;font-weight:800;color:#fff;background:var(--blue);min-height:40px}button:hover{filter:brightness(.95)}button.secondary{background:var(--teal)}button.ghost{background:#334155}button.warn{background:var(--orange)}
-.controls{display:grid;grid-template-columns:.7fr .7fr .9fr 1.4fr auto;gap:10px;align-items:end;margin-bottom:16px}.control{display:flex;flex-direction:column;gap:6px}label{font-size:12px;color:var(--muted);font-weight:800}input,select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 11px;min-height:40px}
+.controls{display:grid;grid-template-columns:.7fr .7fr 1.05fr 1.4fr auto;gap:10px;align-items:end;margin-bottom:16px}.control{display:flex;flex-direction:column;gap:6px}label{font-size:12px;color:var(--muted);font-weight:800}input,select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 11px;min-height:40px}
+.multiFilter{position:relative}.multiFilterButton{width:100%;min-height:40px;padding:10px 36px 10px 11px;border:1px solid var(--line);border-radius:10px;background:#fff!important;color:var(--text)!important;font-weight:700;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}.multiFilterButton::after{content:'▾';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px}.multiFilter.open .multiFilterButton{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(59,130,246,.12)}.multiFilterMenu{display:none;position:absolute;z-index:500;left:0;right:0;top:calc(100% + 6px);min-width:260px;max-height:330px;background:#fff;border:1px solid #cbd5e1;border-radius:13px;box-shadow:0 16px 34px rgba(15,23,42,.18);overflow:hidden}.multiFilter.open .multiFilterMenu{display:block}.multiFilterHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;background:#f8fafc;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:900;color:#334155}.multiFilterHeader button{min-height:28px;padding:5px 8px;font-size:10px;background:#334155}.multiFilterOptions{max-height:260px;overflow:auto;padding:7px}.multiFilterOption{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;font-size:12px;color:#0f172a}.multiFilterOption:hover{background:#eff6ff}.multiFilterOption input{min-height:0;width:16px;height:16px;margin:0;accent-color:#1d4ed8}.multiFilterOption span{line-height:1.35}.multiFilterEmpty{padding:14px;text-align:center;color:#64748b;font-size:11px}.multiFilterHint{font-size:10px;color:#64748b;font-weight:600}
 .kpis{display:grid;grid-template-columns:repeat(8,minmax(120px,1fr));gap:12px;margin-bottom:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 5px 14px rgba(15,23,42,.06)}.kpi .label{font-size:11px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.3px}.kpi .value{font-size:30px;font-weight:950;margin-top:8px}.kpi .sub{font-size:11px;color:var(--muted);margin-top:4px}
 .kpi.clickable{cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;background:linear-gradient(180deg,#fff,#f8fafc)}
 .kpi.clickable:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(15,23,42,.13);border-color:#93c5fd}
@@ -114,7 +115,7 @@ body.authenticated .loginOverlay{display:none}
 </header>
 <div class="wrap">
   <div class="notice">
-    📊 Pilih <b>tanggal cut-off</b>, gunakan filter yang tersedia, dan hubungkan <b>folder surat di laptop</b>. Klik <b>nomor surat</b> untuk membuka file yang cocok; klik area baris lainnya untuk melihat detail dan Historical.
+    📊 Pilih <b>tanggal cut-off</b>, gunakan filter yang tersedia, dan hubungkan <b>folder surat di laptop</b>. Filter <b>PIC / DIC-Fungsi</b> dapat memilih beberapa fungsi sekaligus, misalnya <b>Legal, PGO, dan PMO</b>. Klik <b>nomor surat</b> untuk membuka file yang cocok; klik area baris lainnya untuk melihat detail dan Historical.
   </div>
   <div class="cutoffPanel" id="cutoffPanel">
     <h2>📅 Pilih Tanggal Cut-Off</h2>
@@ -127,7 +128,7 @@ body.authenticated .loginOverlay{display:none}
     </div>
     <button class="cutoffRefresh" type="button" onclick="refreshCutoffList()">↻ Muat Ulang Cut-Off</button>
   </div>
-  <div class="versionStamp">Versi dashboard: Historical + Folder Surat Laptop v4 • 2 Agustus 2026</div>
+  <div class="versionStamp">Versi dashboard: Historical + Folder Surat + Multi PIC v5 • 2 Agustus 2026</div>
   <div class="panel adminOnly" id="adminPanel" style="margin-bottom:16px">
     <div class="toolbar">
       <div class="statusBox" id="statusBox">Status: belum terhubung ke database Excel.</div>
@@ -161,7 +162,16 @@ body.authenticated .loginOverlay{display:none}
   <div class="controls">
     <div class="control"><label>Jenis Surat</label><select id="jenisFilter"><option value="">Semua</option><option>Incoming</option><option>Outgoing</option></select></div>
     <div class="control"><label>Status</label><select id="statusFilter"><option value="">Semua</option></select></div>
-    <div class="control"><label>DIC/Fungsi</label><select id="dicFilter"><option value="">Semua</option></select></div>
+    <div class="control">
+      <label>PIC / DIC-Fungsi <span class="multiFilterHint">(bisa pilih beberapa)</span></label>
+      <div class="multiFilter" id="dicMultiFilter">
+        <button type="button" class="multiFilterButton" id="dicFilterButton" onclick="toggleDicFilterMenu(event)">Semua PIC / Fungsi</button>
+        <div class="multiFilterMenu" id="dicFilterMenu">
+          <div class="multiFilterHeader"><span>Pilih satu atau beberapa fungsi</span><button type="button" onclick="clearDicSelections(event)">Reset</button></div>
+          <div class="multiFilterOptions" id="dicFilterOptions"><div class="multiFilterEmpty">Data belum dimuat.</div></div>
+        </div>
+      </div>
+    </div>
     <div class="control"><label>Search</label><input id="searchInput" placeholder="Nomor, instansi, perihal, PIC..." /></div>
     <button class="warn" onclick="exportCSV()">Export CSV</button>
   </div>
@@ -217,6 +227,7 @@ let rawData=[]; let charts={}; let currentHandle=null; const DB_NAME='abj_dashbo
 let letterFolderHandle=null; let letterFileIndex=[]; let letterFileMatches=new Map(); let currentDetailUid=''; const LETTER_FOLDER_HANDLE_KEY='letterFolderHandle'; const LETTER_FOLDER_NAME_KEY='letterFolderName';
 let githubCutoffFiles=[]; let githubContext=null; let githubCutoffBusy=false;
 let activeQuickFilter={type:'',value:'',label:''};
+let selectedDicGroups=new Set();
 const AUTH_KEY='abj_dashboard_authenticated';
 const PASSWORD_HASH='c0ad5c807f5892b16bb8805c6c346a928081018a1d62707bce5b1b51996766d3';
 let appBooted=false;
@@ -530,7 +541,7 @@ async function refreshDatabase(){
   const saved=await idbGet(HANDLE_KEY).catch(()=>null); currentHandle=saved;
   if(saved){await loadFromHandle(saved,false)}else{setStatus('belum ada koneksi. Klik Hubungkan Database dulu.','bad'); setViewerStatus('Data belum terhubung. Buka mode admin untuk memilih file Excel dari folder OneDrive sync.','bad')}
 }
-async function forgetDatabase(){currentHandle=null; githubCutoffFiles=[]; githubContext=null; activeQuickFilter={type:'',value:'',label:''}; await idbDelete(HANDLE_KEY).catch(()=>{}); await idbDelete(CACHE_KEY).catch(()=>{}); rawData=[]; updateCutoffDisplay('',null); populateCutoffSelect([], ''); populateFilters(); renderAll(); setStatus('koneksi database dan cache direset. Klik Hubungkan Database untuk memilih file lagi.'); setViewerStatus('Data belum dimuat. Admin/internal perlu menghubungkan database dari folder OneDrive sync terlebih dahulu.','warn')}
+async function forgetDatabase(){currentHandle=null; githubCutoffFiles=[]; githubContext=null; activeQuickFilter={type:'',value:'',label:''}; selectedDicGroups.clear(); await idbDelete(HANDLE_KEY).catch(()=>{}); await idbDelete(CACHE_KEY).catch(()=>{}); rawData=[]; updateCutoffDisplay('',null); populateCutoffSelect([], ''); populateFilters(); renderAll(); setStatus('koneksi database dan cache direset. Klik Hubungkan Database untuk memilih file lagi.'); setViewerStatus('Data belum dimuat. Admin/internal perlu menghubungkan database dari folder OneDrive sync terlebih dahulu.','warn')}
 
 document.getElementById('fallbackFile').addEventListener('change',async e=>{const file=e.target.files[0]; if(!file)return; showLoading(true); try{const buf=await file.arrayBuffer(); const info=parseWorkbook(buf); await saveCache(file.name,file.lastModified,info.rows); const mod=new Date(file.lastModified).toLocaleString('id-ID'); updateCutoffDisplay(file.name,extractCutoffDate(file.name)); setSingleCutoffOption(file.name,extractCutoffDate(file.name),'Upload manual'); setStatus(`terhubung via upload manual: <b>${file.name}</b> • ${info.rows.length} baris terbaca`,'ok'); setViewerStatus(`Data berhasil dimuat dari upload manual <b>${escapeHtml(file.name)}</b> • ${info.rows.length} baris 2026 • update file: ${mod}`,'')}catch(err){setStatus('gagal membaca file: '+err.message,'bad'); setViewerStatus('Gagal membaca file Excel. Cek format sheet Incoming 2026 dan Outgoing 2026.','bad')}finally{showLoading(false)}})
 
@@ -711,7 +722,50 @@ function renderDetailFiles(row){
 
 function unique(arr){return [...new Set(arr.filter(hasVal))].sort((a,b)=>String(a).localeCompare(String(b)))}
 function fillSelect(id, values){const sel=document.getElementById(id);const current=sel.value;sel.innerHTML='<option value="">Semua</option>'+values.map(v=>`<option>${escapeHtml(v)}</option>`).join(''); if(values.includes(current))sel.value=current}
-function populateFilters(){fillSelect('statusFilter',unique(rawData.map(r=>r.status||'(Kosong)'))); fillSelect('dicFilter',unique(rawData.map(r=>r.dic||'(Kosong)')))}
+function dicGroup(value){
+  const original=clean(value)||'(Kosong)';
+  const n=norm(original);
+  if(/(^|\s)legal(\s|$)/.test(n))return 'Legal';
+  if(/(^|\s)pgo(\s|$)/.test(n))return 'PGO';
+  if(/(^|\s)pmo(\s|$)/.test(n))return 'PMO';
+  return original;
+}
+function updateDicMultiButton(){
+  const button=document.getElementById('dicFilterButton');
+  if(!button)return;
+  const values=[...selectedDicGroups];
+  if(!values.length){button.textContent='Semua PIC / Fungsi';button.title='Tidak ada filter PIC / DIC-Fungsi';return}
+  button.textContent=values.length<=2?values.join(', '):values.length+' PIC/Fungsi dipilih';
+  button.title='Dipilih: '+values.join(', ');
+}
+function populateDicMultiFilter(){
+  const box=document.getElementById('dicFilterOptions');
+  if(!box)return;
+  const groups=unique(rawData.map(r=>dicGroup(r.dic||'(Kosong)')));
+  selectedDicGroups=new Set([...selectedDicGroups].filter(v=>groups.includes(v)));
+  if(!groups.length){box.innerHTML='<div class="multiFilterEmpty">Tidak ada data PIC / DIC-Fungsi.</div>';updateDicMultiButton();return}
+  box.innerHTML=groups.map((value,index)=>`<label class="multiFilterOption"><input type="checkbox" data-dic-index="${index}" ${selectedDicGroups.has(value)?'checked':''}><span>${escapeHtml(value)}</span></label>`).join('');
+  box.querySelectorAll('input[type="checkbox"]').forEach((checkbox,index)=>{
+    checkbox.addEventListener('change',()=>{
+      const value=groups[index];
+      if(checkbox.checked)selectedDicGroups.add(value);else selectedDicGroups.delete(value);
+      updateDicMultiButton();
+      renderAll();
+    });
+  });
+  updateDicMultiButton();
+}
+function toggleDicFilterMenu(event){
+  event.stopPropagation();
+  document.getElementById('dicMultiFilter')?.classList.toggle('open');
+}
+function clearDicSelections(event){
+  event?.stopPropagation();
+  selectedDicGroups.clear();
+  populateDicMultiFilter();
+  renderAll();
+}
+function populateFilters(){fillSelect('statusFilter',unique(rawData.map(r=>r.status||'(Kosong)')));populateDicMultiFilter()}
 function matchesQuickFilter(r){
   const {type,value}=activeQuickFilter;
   if(!type)return true;
@@ -724,8 +778,8 @@ function matchesQuickFilter(r){
   if(type==='agingOpen')return isOpen(r.status);
   return true;
 }
-function filteredData(){const jenis=document.getElementById('jenisFilter').value; const status=document.getElementById('statusFilter').value; const dic=document.getElementById('dicFilter').value; const q=norm(document.getElementById('searchInput').value);
-  return rawData.filter(r=>(!jenis||r.jenis===jenis)&&(!status||(status==='(Kosong)'?!hasVal(r.status):r.status===status))&&(!dic||(dic==='(Kosong)'?!hasVal(r.dic):r.dic===dic))&&(!q||norm(Object.values(r).join(' ')).includes(q))&&matchesQuickFilter(r))
+function filteredData(){const jenis=document.getElementById('jenisFilter').value; const status=document.getElementById('statusFilter').value; const selectedDic=[...selectedDicGroups]; const q=norm(document.getElementById('searchInput').value);
+  return rawData.filter(r=>(!jenis||r.jenis===jenis)&&(!status||(status==='(Kosong)'?!hasVal(r.status):r.status===status))&&(!selectedDic.length||selectedDic.includes(dicGroup(r.dic||'(Kosong)')))&&(!q||norm(Object.values(r).join(' ')).includes(q))&&matchesQuickFilter(r))
 }
 function updateActiveFilterInfo(){
   const box=document.getElementById('activeFilterInfo');
@@ -734,11 +788,11 @@ function updateActiveFilterInfo(){
   const parts=[];
   const jenis=document.getElementById('jenisFilter').value;
   const status=document.getElementById('statusFilter').value;
-  const dic=document.getElementById('dicFilter').value;
+  const dic=[...selectedDicGroups];
   const search=document.getElementById('searchInput').value.trim();
   if(jenis)parts.push('Jenis: '+jenis);
   if(status)parts.push('Status: '+status);
-  if(dic)parts.push('DIC: '+dic);
+  if(dic.length)parts.push('PIC/Fungsi: '+dic.join(', '));
   if(search)parts.push('Search: '+search);
   if(activeQuickFilter.type)parts.push(activeQuickFilter.label||activeQuickFilter.value);
   box.classList.toggle('show',parts.length>0);
@@ -753,7 +807,8 @@ function resetAllFilters(){
   activeQuickFilter={type:'',value:'',label:''};
   document.getElementById('jenisFilter').value='';
   document.getElementById('statusFilter').value='';
-  document.getElementById('dicFilter').value='';
+  selectedDicGroups.clear();
+  populateDicMultiFilter();
   document.getElementById('searchInput').value='';
   renderAll();
 }
@@ -862,7 +917,8 @@ function renderTables(data){
 }
 function renderAll(){const data=filteredData(); renderKPIs(data); renderCharts(data); renderTables(data); updateActiveFilterInfo()}
 document.getElementById('cutoffSelect').addEventListener('change',changeCutoff);
-['jenisFilter','statusFilter','dicFilter','searchInput'].forEach(id=>document.getElementById(id).addEventListener('input',renderAll));
+['jenisFilter','statusFilter','searchInput'].forEach(id=>document.getElementById(id).addEventListener('input',renderAll));
+document.addEventListener('click',e=>{const root=document.getElementById('dicMultiFilter');if(root&&!root.contains(e.target))root.classList.remove('open')});
 ['openTable','dataTable'].forEach(id=>{const table=document.getElementById(id);table.addEventListener('click',handleTableRowClick);table.addEventListener('keydown',handleTableRowKeydown)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('detailModal').classList.contains('show'))closeLetterDetail()});
 function exportCSV(){const rows=filteredData(); if(!rows.length){alert('Tidak ada data untuk diexport.');return} const headers=['jenis','nomor','tanggal','tanggal_surat','instansi','perihal','deskripsi','produksi_project','lokasi','kategori','due_date','status','level_status','dic','pic','aging','perlu_dibalas','tindak_lanjut','dibalas_nomor','historical','source']; const csv=[headers.join(',')].concat(rows.map(r=>headers.map(h=>'"'+String(r[h]??'').replace(/"/g,'""')+'"').join(','))).join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='export_dashboard_abj_2026.csv';a.click();URL.revokeObjectURL(a.href)}
